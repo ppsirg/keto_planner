@@ -13,6 +13,7 @@ Thumbs.db
 *.swo
 *.lnk
 *~
+tor/
 
 #python trash
 *.pyc
