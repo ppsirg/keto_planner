@@ -1,3 +1,7 @@
+"""
+various tests
+"""
+
 import unittest
 from tests.calculators import calculators_tests
 

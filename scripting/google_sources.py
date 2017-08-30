@@ -4,8 +4,8 @@ semi-automation of google search for information
 
 import webbrowser as wb
 from time import sleep
-from bs4 import BeautifulSoup
-import requests
+# from bs4 import BeautifulSoup
+# import requests
 
 
 foods = [
