@@ -20,4 +20,6 @@ def full_food_calculator(file_path):
     # report of calories proportion
     report = calculator.calculate_calories_proportions()
     print(report) # TODO: put display in test
+    keto_analysis = calculator.keto_analysis()
+    print(keto_analysis) # TODO: put display in test
     return carbs, proteins

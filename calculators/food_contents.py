@@ -24,10 +24,10 @@ class daily_intake_calculator(object):
         self.fat_content = self.calculate_fats()
 
     def normalized_pertentage(self, partial, total):
-        return round(
-            ((partial / total) * 100),
-            ndigits=3
-            )
+        """
+        calculate a percentage with 3 decimal digits
+        """
+        return round(((partial / total) * 100), ndigits=3)
 
     def calculate_calories_proportions(self):
         """
@@ -58,7 +58,58 @@ class daily_intake_calculator(object):
                 self.normalized_pertentage(alcohol_calories, total_calories)),
         }
 
+    def keto_analysis(self):
+        """
+        do keto analysis
+        """
+        # declare proportions bias
+        # source: https://www.ruled.me/guide-keto-diet/
+        protein_carbs_range = (4, 6)  # ideal: 5
+        fat_range = (63, 77)  # ideal: 70
+        # get calories proportions
+        report = self.calculate_calories_proportions()
+        proportion = report['protein'][1] / report['carbs'][1]
+        # valorate carbs, fats and proteins
+        if proportion <= protein_carbs_range[0]:
+            # too much carbs
+            carbs_analysis = '[planned_{}%][real_{:.2f}%]: high'
+            protein_analysis = '[planned_{}%][real_{:.2f}%]: low'
+        elif proportion >= protein_carbs_range[1]:
+            # too many proteins
+            carbs_analysis = '[planned_{}%][real_{:.2f}%]: low'
+            protein_analysis = '[planned_{}%][real_{:.2f}%]: high'
+        else:
+            # proteins and carbs are ok
+            carbs_analysis = '[planned_{}%][real_{:.2f}%]: ok'
+            protein_analysis = '[planned_{}%][real_{:.2f}%]: ok'
+        if report['fat'][1] <= fat_range[0]:
+            # need more fat
+            fat_analysis = '[planned_{}%][real_{:.2f}%]: low'
+        elif report['fat'][1] >= fat_range[1]:
+            # need less fat
+            fat_analysis = '[planned_{}%][real_{:.2f}%]: high'
+        else:
+            # fat is ok
+            fat_analysis = '[planned_{}%][real_{}%]: fat in the range'
+        return {
+            'carbs': carbs_analysis.format(5, report['carbs'][1]),
+            'protein': protein_analysis.format(25, report['protein'][1]),
+            'fat': fat_analysis.format(70, report['fat'][1])
+        }
+
+    def tdee_analysis(self):
+        """
+        do tdee analysis
+        """
+        # calculate calories
+        # TODO: compare with tdee plan
+        pass
+
     def do_calculation(self, food_contents_dict):
+        """
+        calculate total and partial contents of any statistics in daily_intake
+        given a dictionary with it's contents per 100g
+        """
         ingredients = deepcopy(self.daily_intake)
         adjusts = {}
         total_content = 0

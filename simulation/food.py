@@ -14,7 +14,7 @@ def load_csv_food_data(path):
     calories = []
     with open(path, 'r') as csv_file:
         for line in csv_file:
-            fd, cr, pr, ft, al, cl = line.strip().split(' ')
+            fd, cr, pr, ft, al, cl = line.strip().split(',')
             food_name.append(fd)
             carbs.append(float(cr))
             proteins.append(float(pr))
