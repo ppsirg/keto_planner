@@ -18,10 +18,10 @@ class daily_intake_calculator(object):
 
     def __init__(self, food_contents_dict):
         self.daily_intake = food_contents_dict
-        self.carb_content = self.calculate_carbs()
-        self.protein_content = self.calculate_proteins()
-        self.alcohol_content = self.calculate_alcoholics()
-        self.fat_content = self.calculate_fats()
+        self.carb_content = self.calculate_carbs()['total']
+        self.protein_content = self.calculate_proteins()['total']
+        self.alcohol_content = self.calculate_alcoholics()['total']
+        self.fat_content = self.calculate_fats()['total']
 
     def normalized_pertentage(self, partial, total):
         """
@@ -58,13 +58,50 @@ class daily_intake_calculator(object):
                 self.normalized_pertentage(alcohol_calories, total_calories)),
         }
 
-    def keto_analysis(self):
+    def complete_analysis(self):
+        """
+        do complete analysis
+        """
+        # percentaje analysis
+        admited_ranges = {
+            'carbs': (4.5, 7.5),  # ideal: 5
+            'protein': (23, 28),  # ideal: 25
+            'fat': (63, 77),  # ideal: 70
+            }
+        report = self.calculate_calories_proportions()
+        for r in admited_ranges:
+            if report[r][1] < admited_ranges[r][0]:
+                # low
+                pass
+            elif report[r][1] > admited_ranges[r][1]:
+                # high
+                pass
+            else:
+                # ok
+                pass
+
+        # proportion analysis
+        protein_carbs_range = (4, 6)  # ideal: 5
+        protein_carbs_ratio = report['protein'][1] / report['carbs'][1]
+        if protein_carbs_ratio <= protein_carbs_range[0]:
+            # more protein
+            pass
+        elif protein_carbs_ratio >= protein_carbs_range[1]:
+            # less protein
+            pass
+
+        # food analysis
+        pass
+
+    def keto_analysis(self):# TODO: refactor this
         """
         do keto analysis
         """
         # declare proportions bias
         # source: https://www.ruled.me/guide-keto-diet/
         protein_carbs_range = (4, 6)  # ideal: 5
+        carbs_range = (4.5, 7.5)
+        protein_range = (23, 28)
         fat_range = (63, 77)  # ideal: 70
         # get calories proportions
         report = self.calculate_calories_proportions()
@@ -129,23 +166,46 @@ class daily_intake_calculator(object):
     def calculate_proteins(self):
         """calculate proteins in a list of things"""
         total_content, partial_contents = self.do_calculation(proteins)
-        print('partial proteins contents: {}'.format(partial_contents))
-        return total_content
+        # print('partial proteins contents: {}'.format(partial_contents))
+        return {'total': total_content, 'partial': partial_contents}
 
     def calculate_carbs(self):
         """calculate carbs in a list of things"""
         total_content, partial_contents = self.do_calculation(carbs)
-        print('partial carbs contents: {}'.format(partial_contents))
-        return total_content
+        # print('partial carbs contents: {}'.format(partial_contents))
+        return {'total': total_content, 'partial': partial_contents}
 
     def calculate_fats(self):
         """calculate fats in a list of things"""
         total_content, partial_contents = self.do_calculation(fats)
-        print('partial fat contents: {}'.format(partial_contents))
-        return total_content
+        # print('partial fat contents: {}'.format(partial_contents))
+        return {'total': total_content, 'partial': partial_contents}
 
     def calculate_alcoholics(self):
         """calculate alcohol in a list of things"""
         total_content, partial_contents = self.do_calculation(alcoholics)
-        print('partial alcohol contents: {}'.format(partial_contents))
-        return total_content
+        # print('partial alcohol contents: {}'.format(partial_contents))
+        return {'total': total_content, 'partial': partial_contents}
+
+
+def analyse_percentajes():
+    """
+    validate percentajes of proteins, carbs and fat
+    """
+    # CARBS
+    # less than 20 is too low
+    # between 20 and 40 is ok
+    # more than 40 is too high
+    # # FATS
+    # less than 60 is too low
+    # between 60 and 75 is ok
+    # more than 75 is too high
+    # # PROTEINS
+    # less than 20 is too low
+    # between 20 and 30 is ok
+    # more than 30 is too high
+    # # FAT-CARBS RATIO
+    # less than 4.5 is too much carbs
+    # between 4.5 and 5.5 is ok
+    # more than 5.5 is too much protein
+    pass

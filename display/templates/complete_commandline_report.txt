@@ -1,0 +1,43 @@
+==========================
+  COMPLETE KETO ANALYSIS
+==========================
+
+----------------
+INTAKE CONTENTS
+----------------
+  - Fat      _ _  {fat[g]:.3f} g [{fat[cal]:.3f} cals {fat[per]:.2f}%] 
+                  ({fat[status]}], ideal: {fat[ideal]}%)
+  - Protein  _ _  {protein[g]:.3f} g [{protein[cal]:.3f} cals {protein[per]:.2f}%]
+                  ({protein[status]}, ideal: {protein[ideal]}%)
+  - Carbs    _ _  {carbs[g]:.3f} g [{carbs[cal]:.3f} cals {carbs[per]:.2f}%]
+                  ({carbs[status]}, ideal: {carbs[ideal]}%)
+
+Total Calories: {total_calories} cals
+
+-------------------------
+CARBS-PROTEIN PROPORTION
+-------------------------
+  - Protein _ _ {protein[g]:.3f} g [{protein[per]:.2f}%]
+  - Carbs   _ _ {carbs[g]:.3f} g [{carbs[per]:.2f}%]
+
+Current ratio: {carbs_protein_ratio:.3f}
+Ideal ratio: {carbs_protein_ideal:.3f}
+
+{carbs_protein_advice}
+
+--------------
+FOOD ANALYSIS
+--------------
+
+- Carbs
+  1. {carbs[detail][0][name]} [{carbs[detail][0][cals]:.3f} g _ {carbs[detail][0][per]:.2f}%]
+  2. {carbs[detail][1][name]} [{carbs[detail][1][cals]:.3f} g _ {carbs[detail][1][per]:.2f}%]
+  3. {carbs[detail][2][name]} [{carbs[detail][2][cals]:.3f} g _ {carbs[detail][2][per]:.2f}%]
+- Fat
+  1. {fat[detail][0][name]} [{fat[detail][0][cals]:.3f} g _ {fat[detail][0][per]:.2f}%]
+  2. {fat[detail][1][name]} [{fat[detail][1][cals]:.3f} g _ {fat[detail][1][per]:.2f}%]
+  3. {fat[detail][2][name]} [{fat[detail][2][cals]:.3f} g _ {fat[detail][2][per]:.2f}%]
+- Protein
+  1. {protein[detail][0][name]} [{protein[detail][0][cals]:.3f} g _ {protein[detail][0][per]:.2f}%]
+  2. {protein[detail][1][name]} [{protein[detail][1][cals]:.3f} g _ {protein[detail][1][per]:.2f}%]
+  3. {protein[detail][2][name]} [{protein[detail][2][cals]:.3f} g _ {protein[detail][2][per]:.2f}%]
